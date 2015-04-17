@@ -12,6 +12,8 @@ class Post {
         itsAllowed()
     }
 
+    static hasMany=[files:File]
+
     void comment(){}
     void rate(){}
     void share(){}

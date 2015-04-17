@@ -8,4 +8,6 @@ class Regular {
         strikesNumber( range: 0..3 )
         starsNumber( range: 0..5 )
     }
+
+    static hasMany=[posts:Post]
 }

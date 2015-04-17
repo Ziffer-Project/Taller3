@@ -9,4 +9,11 @@ class Forum {
         dateCreated( blank: false, nullable: false, validator: {date-> date.after(GregorianCalendar.getInstance().getTime())} )
         category( blank: false, size: 3..15 )
     }
+
+    List<Post> posts
+    //static hasMany=[posts:Post]
+
+    def beforeInsert={
+        dateCreated=new Date()
+    }
 }

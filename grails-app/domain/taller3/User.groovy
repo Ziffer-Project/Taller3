@@ -13,6 +13,10 @@ class User {
         username( blank : false, unique: true )
         password( blank : false, minSize: 8, matches: "[a-zA-Z0-9]*([a-z][a-zA-Z0-9]*[A-Z][a-zA-Z0-9]*[0-9]|[a-z][a-zA-Z0-9]*[0-9][a-zA-Z0-9]*[A-Z]|[A-Z][a-zA-Z0-9]*[a-z][a-zA-Z0-9]*[0-9]|[A-Z][a-zA-Z0-9]*[0-9][a-zA-Z0-9]*[a-z]|[0-9][a-zA-Z0-9]*[a-z][a-zA-Z0-9]*[A-Z]|[0-9][a-zA-Z0-9]*[A-Z][a-zA-Z0-9]*[a-z])[a-zA-Z0-9]*" )
     }
+
+    static mapping ={
+        tablePerHierarchy true
+    }
     String toString(){
         username
     }
