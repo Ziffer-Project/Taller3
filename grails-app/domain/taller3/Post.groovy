@@ -5,6 +5,7 @@ class Post {
     Date dateCreated
     Date lastupdate
     boolean itsAllowed
+
     static constraints = {
         topic( blank: false, size: 3..50)
         dateCreated( blank: false, nullable: false, validator: {date-> date.after(GregorianCalendar.getInstance().getTime())} )
@@ -12,9 +13,23 @@ class Post {
         itsAllowed()
     }
 
-    static hasMany=[files:File]
+    static hasMany = [files: File]
+    static belongsTo = [forum: Forum, regular: Regular]
 
-    void comment(){}
-    void rate(){}
-    void share(){}
+    static mapping = {
+        regular.id column: 'owner_id'
+        forum.id column: 'fatherFourm_id'
+    }
+
+    def beforeInsert() {
+        this.dateCreated = new Date()
+    }
+
+    def beforeUpdate() {
+        this.lastUpdate = new Date()
+    }
+
+    void comment() {}
+    void rate() {}
+    void share() {}
 }

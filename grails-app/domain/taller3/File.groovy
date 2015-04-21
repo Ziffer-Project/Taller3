@@ -10,11 +10,13 @@ class File {
         size( validator: { size-> if(size.isNaN() || size > 10000000)return false else return true })
     }
 
-    void download(){
+    static belongsTo = [post: Post]
 
+    static mapping = {
+        post.id column: 'post_belongs_id'
     }
 
-    void share(){
+    void download() {}
 
-    }
+    void share() {}
 }
