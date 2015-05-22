@@ -17,8 +17,10 @@ class Post {
     static belongsTo = [forum: Forum, regular: Regular]
 
     static mapping = {
-        regular.id column: 'owner_id'
-        forum.id column: 'fatherFourm_id'
+        table 'Regular'
+        id column: 'owner_id'
+        table 'Forum'
+        id column: 'fatherForum_id'
     }
 
     def beforeInsert() {

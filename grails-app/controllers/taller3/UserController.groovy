@@ -11,8 +11,7 @@ class UserController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond User.list(params), model:[userInstanceCount: User.count()]
+        render User.list()
     }
 
     def show(User userInstance) {
@@ -31,7 +30,7 @@ class UserController {
         }
 
         if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'create'
+            println userInstance.errors
             return
         }
 
@@ -93,6 +92,7 @@ class UserController {
     }
 
     protected void notFound() {
+        println 'User instance with id = $params.id not found'
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
@@ -101,4 +101,13 @@ class UserController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def beforeInterceptor = {
+        println "Se va a ejecutar la accion: $actionName"
+    }
+
+    def afterInterceptor = {
+        println "Se ha ejecutado la accion: $actionName"
+    }
+
 }

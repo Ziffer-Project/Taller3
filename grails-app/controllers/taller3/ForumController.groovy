@@ -11,8 +11,7 @@ class ForumController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Forum.list(params), model:[forumInstanceCount: Forum.count()]
+        render Forum.list()
     }
 
     def show(Forum forumInstance) {
@@ -31,7 +30,7 @@ class ForumController {
         }
 
         if (forumInstance.hasErrors()) {
-            respond forumInstance.errors, view:'create'
+            println forumInstance.errors
             return
         }
 
@@ -93,6 +92,7 @@ class ForumController {
     }
 
     protected void notFound() {
+        println 'Forum instance with id = $params.id not found'
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'forum.label', default: 'Forum'), params.id])
@@ -101,4 +101,13 @@ class ForumController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def beforeInterceptor = {
+        println "Se va a ejecutar la accion: $actionName"
+    }
+
+    def afterInterceptor = {
+        println "Se ha ejecutado la accion: $actionName"
+    }
+
 }

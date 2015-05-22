@@ -11,8 +11,7 @@ class FileController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond File.list(params), model:[fileInstanceCount: File.count()]
+        render File.list()
     }
 
     def show(File fileInstance) {
@@ -31,7 +30,7 @@ class FileController {
         }
 
         if (fileInstance.hasErrors()) {
-            respond fileInstance.errors, view:'create'
+            println fileInstance.errors
             return
         }
 
@@ -93,6 +92,7 @@ class FileController {
     }
 
     protected void notFound() {
+        println 'File instance with id = $params.id not found'
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'file.label', default: 'File'), params.id])
@@ -101,4 +101,13 @@ class FileController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def beforeInterceptor = {
+        println "Se va a ejecutar la accion: $actionName"
+    }
+
+    def afterInterceptor = {
+        println "Se ha ejecutado la accion: $actionName"
+    }
+
 }

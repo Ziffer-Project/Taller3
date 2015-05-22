@@ -11,8 +11,7 @@ class RegularController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Regular.list(params), model:[regularInstanceCount: Regular.count()]
+        render Regular.list()
     }
 
     def show(Regular regularInstance) {
@@ -31,7 +30,7 @@ class RegularController {
         }
 
         if (regularInstance.hasErrors()) {
-            respond regularInstance.errors, view:'create'
+            println regularInstance.errors
             return
         }
 
@@ -93,6 +92,7 @@ class RegularController {
     }
 
     protected void notFound() {
+        println 'Regular instance with id = $params.id not found'
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'regular.label', default: 'Regular'), params.id])
@@ -101,4 +101,13 @@ class RegularController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def beforeInterceptor = {
+        println "Se va a ejecutar la accion: $actionName"
+    }
+
+    def afterInterceptor = {
+        println "Se ha ejecutado la accion: $actionName"
+    }
+
 }

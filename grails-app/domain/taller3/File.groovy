@@ -13,7 +13,8 @@ class File {
     static belongsTo = [post: Post]
 
     static mapping = {
-        post.id column: 'post_belongs_id'
+        table 'Post'
+        id column: 'post_belongs_id'
     }
 
     void download() {}
