@@ -31,7 +31,5 @@ class Post {
         this.lastUpdate = new Date()
     }
 
-    void comment() {}
-    void rate() {}
-    void share() {}
+
 }

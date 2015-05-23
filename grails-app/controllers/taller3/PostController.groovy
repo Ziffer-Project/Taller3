@@ -102,6 +102,18 @@ class PostController {
         }
     }
 
+    def comment(){
+
+    }
+
+    def rate(){
+
+    }
+
+    def share(){
+
+    }
+
     def beforeInterceptor = {
         println "Se va a ejecutar la accion: $actionName"
     }
