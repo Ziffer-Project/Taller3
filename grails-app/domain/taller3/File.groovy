@@ -7,7 +7,7 @@ class File {
     static constraints = {
         fileType( blank: false, matches: "[^/]+(/[^/]+)+" )
         content( )
-        size( validator: { size-> if(size.isNaN() || size > 10000000)return false else return true })
+        size( validator: { size-> if(size.isNaN() || size > (1024*1024*10))return false else return true })
     }
 
     static belongsTo = [post: Post]
@@ -16,8 +16,4 @@ class File {
         table 'Post'
         id column: 'post_belongs_id'
     }
-
-    void download() {}
-
-    void share() {}
 }
