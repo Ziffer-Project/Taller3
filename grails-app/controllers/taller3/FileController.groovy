@@ -45,6 +45,22 @@ class FileController {
         }
     }
 
+    def upload() {
+        def file = request.getFile('file')
+
+        if (file.isEmpty()) {
+            flash.message = "No puedes subir un archivo vacio"
+        } else if (!file.getContentType().equals("text/plain") && !file.getContentType().equals("image/png")) {
+            flash.message = "El archivo debe ser un texto plano (.txt) o una imagen (.png)."
+        } else {
+            def fileToUpload = new File()
+            fileToUpload.fileType = file.getContentType()
+            fileToUpload.size = file.getSize()
+            fileToUpload.content = file.getBytes()
+            this.save(fileToUpload)
+        }
+    }
+
     def edit(File fileInstance) {
         respond fileInstance
     }
@@ -89,6 +105,25 @@ class FileController {
             }
             '*'{ render status: NO_CONTENT }
         }
+    }
+
+    def share() { render "Esta funcionalidad no ha sido implementada" }
+
+    def download() {
+
+        def file = File.get(params.actualFile)
+
+        if (file == null) {
+            flash.message = "Archivo no encontrado."
+        } else {
+            response.setContentType(file.getContentType())
+            response.setHeader("Content-Disposition", "Attachment;Filename=\"${file.name}\"")
+            def outputStream = response.getOutputStream()
+            outputStream << file.getBytes()
+            outputStream.flush()
+            outputStream.close()
+        }
+
     }
 
     protected void notFound() {
