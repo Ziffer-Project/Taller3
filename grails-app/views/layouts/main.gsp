@@ -17,9 +17,22 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
+		<div id="grailsLogo" role="banner">
+			<g:link url="/Taller3">
+				<h1><asset:image src="ziffer_logo.png" alt="Ziffer" height="74" width="42"/>               Ziffer Forum 2.0</h1>
+			</g:link>
+		</div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
+		<div class="footer" role="contentinfo"align="center">
+			<h3 >Grupo Ziffer:</h3>
+				<br>
+				<h5>Oscar de Angel</h5>
+				<h5>David Dager</h5>
+				<h5>Daniel Aranda</h5>
+				<h5>Daniel Lopez</h5>
+				<h5>Hernan Olarte</h5>
+
+		</div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 	</body>
 </html>
