@@ -103,15 +103,19 @@ class PostController {
     }
 
     def comment(){
-
+        def post = Post.findbY(params.actualPost)
+        def comment = params.commentContent
+        post.comment.add(comment)
     }
 
     def rate(){
-
+        def post= Post.findById(params.actualPost)
+        post.rate+=1
+        post.save();
     }
 
     def share(){
-
+        render: "Not implemented yet"
     }
 
     def beforeInterceptor = {

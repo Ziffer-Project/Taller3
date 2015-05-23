@@ -5,6 +5,7 @@ class Post {
     Date dateCreated
     Date lastupdate
     boolean itsAllowed
+    ArrayList<String> comments
 
     static constraints = {
         topic( blank: false, size: 3..50)
